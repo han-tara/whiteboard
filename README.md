@@ -57,10 +57,13 @@ node
 ## Sequence Diagram
 **Authenthication & Authorization**
 
-![sequence diagram](./diagram/sequence_diagram_security.svg)
+![security diagram](./diagram/sequence_diagram_security.svg)
 
-**Participant**
+**Participant dashboard, connect, disconnect, create, leave whiteboard**
+![Participant diagram](./diagram/sequence_diagram_participant.svg)
 
+**Coordinator**
+![coordinator diagram](./diagram/sequence_diagram_coordinator.svg)
 
 ## ER Diagram
 <img src="./diagram/er_diagram.png">
