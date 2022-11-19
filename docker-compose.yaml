@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  database:
+    container_name: database
+    image: mariadb
+    ports:
+      - 5000:3306
+    networks:
+      - whiteboard_network
+    env_file:
+      - .env
+
+networks:
+  whiteboard_network:
+    name: whiteboard_network

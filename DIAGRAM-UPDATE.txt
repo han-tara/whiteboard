@@ -1,0 +1,5 @@
+participant schema:
+    ADD  refresh_token
+
+sequence diagram:
+    EDIT /register user return message = /dashboard
