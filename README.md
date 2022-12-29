@@ -2,35 +2,47 @@
 objective of this project is to implement some core technology for making real-time document editing app. This application use nest js as main framework, mariadb for database, jwt + refresh token for security, and socket.io for real time communication.
 
 Section:
-* [Installation](#installation)
+* [Setup](#installation)
+* [Running](#running)
 * [Requirements](#requirements)
 * [UML Diagram](#uml-diagram)
 * [ERD](#er-diagram)
 
-# Installation
-## Docker compose (for trying the app)
+# Setup
+## Install packages
 ```
-node
-    bla bla
-    bruhh
+yarn install
 ```
 
-## Manual Setup - Backend
-1. git clone han-tara/whiteboard
-2. add this .env 
-    ``` 
-    DATABASE_PORT = {your_port}
-    ```
-3. run `pnpm app:start`
+## Docker compose (15-20 seconds to complete)
+```
+yarn db:restart
+```
 
-## Manual Setup - Frontend
-1. git clone han-tara/whiteboard-fe
-2. add this .env
-    ```
-    database
-    ```
-3. run `pnpm astro start`
+# Running
+## Start nest server
+```
+yarn start:dev
+```
+## Get access token - via signup / signin (use postman)
+```
+> localhost:3000/auth/signup or signin
+> body
+{
+    "name" : "name",
+    "password" : "password"
+}
+```
 
+## Open wb-edit.html
+```
+root/static/wb-edit.html
+```
+
+## Using the app
+* copy access token into "access token input field" and press "set token"
+* set your destination room (apabila ada pop up berarti berhasil masuk)
+* start editing!
 
 # Requirements
 ## User Requirement
