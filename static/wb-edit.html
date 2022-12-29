@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.socket.io/4.5.3/socket.io.min.js"
+        integrity="sha384-WPFUvHkB1aHA5TDSZi6xtDgkF0wXJcIIxXhC6h8OT8EH3fC5PWro5pWJ1THjcfEi"
+        crossorigin="anonymous"></script>
+    
+</head>
+<body class="flex flex-col justify-center items-center gap-4">
+    <div class="flex justify-center items-center p-2 border-2 w-full gap-3">
+        <input type="text" class="border-2" id="room" placeholder="room" onchange="setData()">
+        <button class="bg-green-500 p-2" onclick="joinRoom()">join room</button>
+        <button class="bg-red-500 p-2" onclick="leaveRoom()">leave room</button>
+
+        <input type="text" class="border-2" id="token" placeholder="access token">
+        <button class="bg-green-500 p-2" onclick="setToken()">set token</button>
+    </div>
+    <textarea id="paper" class="w-5/6 h-screen  resize-none shadow-lg border-transparent"></textarea>
+</body>
+<script>
+    let savedRoom = ''
+
+    let socket = io('ws://localhost:3000/whiteboards',{
+        auth: {
+            token: 'abc123'
+        }
+    })
+
+    function setToken() {
+        socket.disconnect()
+        const token = $('#token').val()
+        socket = io('ws://localhost:3000/whiteboards', {
+            auth: {
+                token
+            }
+        })
+        alert('token set!')
+    }
+
+    function joinRoom() {
+        const room = $('#room').val()
+        savedRoom = room
+        socket.emit('joinRoom',room)
+        socket.on('joinedRoom', room => {
+            alert('joined room: ' + room)
+        })
+
+        socket.on('getData', data => {
+            console.log(data)
+            $('#paper').val(data)
+        })
+    }
+
+    function leaveRoom() {
+        const room = $('#room').val()
+        socket.emit('leaveRoom',room)
+        socket.on('leftRoom', room=>{
+            alert('left room: ' + room)
+        })
+    }
+
+    function setData() {
+        const text = $('#paper').val()
+        socket.emit('setData',{
+            text,
+            room: savedRoom
+        })
+    }
+
+    $('#paper').keyup(()=>{
+        setData()
+    })
+    
+</script>
+</html>

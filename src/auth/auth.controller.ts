@@ -35,7 +35,6 @@ export class AuthController {
     @HttpCode(HttpStatus.OK)
     refresh(@Req() req: Request): Promise<Tokens | ForbiddenException> {
         const user = req.user
-        
         return this.service.refresh(user['sub'],user['refreshToken'])
     }
 }

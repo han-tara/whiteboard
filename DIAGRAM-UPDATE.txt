@@ -3,3 +3,8 @@ participant schema:
 
 sequence diagram:
     EDIT /register user return message = /dashboard
+
+
+Socket connection consideration:
+    - user that not join room can sent.to(room).emit (need validation)
+    - pipe filter payload from client
